@@ -6,6 +6,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+import "react-native-get-random-values";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -43,16 +45,23 @@ export default function RootLayout() {
 
   return <RootLayoutNav />;
 }
+const database = process.env.CONVEX_URL;
+
+const convex = new ConvexReactClient(database || '', {
+  unsavedChangesWarning: false,
+});
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <ConvexProvider client={convex}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </ConvexProvider>
     </ThemeProvider>
   );
 }

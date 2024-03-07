@@ -3,11 +3,24 @@ import { Platform, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+
 
 export default function ModalScreen() {
+
+  const tasks = useQuery(api.tasks.get);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Coming Soon</Text>
+      <Text >Real Time Notification Approval</Text>
+
+      <View style={styles.container}>
+        {tasks?.map(({ _id, text }) => (
+          <Text key={_id}>{text}</Text>
+        ))}
+      </View>
     </View>
   );
 }

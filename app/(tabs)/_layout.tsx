@@ -1,12 +1,14 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { MaterialIcons } from '@expo/vector-icons';
+import AuthScreen from '@/components/authScreen';
+import { Badge } from 'react-native-elements';
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -19,7 +21,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    true ? (<Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         // Disable the static render of the header on web
@@ -35,19 +37,25 @@ export default function TabLayout() {
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <View>
+                    <FontAwesome
+                      name="bell"
+                      size={25}
+                      color={Colors[colorScheme ?? 'light'].text}
+                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    />
+                    <Badge
+                      value="1"
+                      containerStyle={{ position: 'absolute', top: -8, end: 8 }}
+                    />
+                  </View>
                 )}
               </Pressable>
             </Link>
           ),
         }}
       />
-     
+
       <Tabs.Screen
         name="two"
         options={{
@@ -55,6 +63,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <AntDesign name="profile" size={24} color={color} />,
         }}
       />
-    </Tabs>
+    </Tabs>) : (<AuthScreen navigation={undefined} />)
   );
 }

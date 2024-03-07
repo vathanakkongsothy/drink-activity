@@ -8,6 +8,8 @@ import { CheckBox } from 'react-native-elements';
 import { ProgressBar } from 'react-native-paper';
 import React from 'react';
 import { Button } from 'react-native';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 export default function TabOneScreen() {
   const [downloadProgress, setDownloadProgress] = React.useState(0);
@@ -97,14 +99,14 @@ export default function TabOneScreen() {
                     <Text>People Approval 3 / 3</Text>
                   </Card.Title>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <View style={{ marginLeft: '-1rem' }} >
+                    <View style={{ marginLeft: -15 }} >
                       <CheckBox checked={true} />
                     </View>
                     <Text style={{ fontWeight: 'bold', marginLeft: '-1rem' }}>Vathanak</Text>
                     <Text style={{ marginLeft: '2.5rem' }}>{new Date().toLocaleString()}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <View style={{ marginLeft: '-1rem' }} >
+                    <View style={{ marginLeft: -15 }} >
                       <CheckBox checked={true} />
                     </View>
                     <Text style={{ fontWeight: 'bold', marginLeft: '-1rem' }}>The Seng</Text>
